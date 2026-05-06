@@ -1,46 +1,31 @@
 /**
  * TicTacToe
- * UC5 validates whether a move is inside the board boundaries
- * and whether the selected cell is empty.
+ * UC6 places a player's symbol on the board at the given position.
+ * This use case focuses on updating game state.
  */
 public class TicTacToe {
 
-    // Pre-initialized board for testing validation logic
-    static char[][] board = {
-        {'-', '-', '-'},
-        {'-', '-', '-'},
-        {'-', '-', '-'}
-    };
+    // 2D Array to represent the 3x3 board
+    static char[][] board = new char[3][3];
 
     /**
-     * Entry point of the program. Tests the validation logic
-     * using sample row and column values.
+     * Entry point of the program. Places a sample move
+     * and prints the updated cell value.
      */
     public static void main(String[] args) {
-        // Testing a valid move
-        System.out.println(isValidMove(1, 1)); 
+        placeMove(0, 0, 'X');
+        System.out.println(board[0][0]);
     }
 
     /**
-     * Checks if the given row and column are within bounds
-     * and if the target cell is empty.
-     * Input: Row, Column
-     * Output: true if valid, false otherwise.
+     * Updates the board by placing the given symbol at
+     * the specified row and column.
+     * Input: Row, Column, Symbol
+     * Hint: Assume the move is already validated.
      */
-    static boolean isValidMove(int row, int col) {
-        // Step 1: Boundary Checking
-        // If the row or column is less than 0 or greater than 2, it's out of bounds.
-        if (row < 0 || row > 2 || col < 0 || col > 2) {
-            return false;
-        }
-        
-        // Step 2: Empty Cell Checking
-        // If the cell does not contain the empty placeholder '-', it is already taken.
-        if (board[row][col] != '-') {
-            return false;
-        }
-        
-        // If it passes both checks, the move is valid.
-        return true;
+    static void placeMove(int row, int col, char symbol) {
+        // Access the specific cell using row and column indices
+        // and assign the player's symbol to it.
+        board[row][col] = symbol;
     }
 }
