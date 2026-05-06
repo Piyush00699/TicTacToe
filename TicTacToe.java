@@ -1,59 +1,40 @@
-import java.util.Random;
-
 /**
  * TicTacToe
- * UC7 allows the computer to make a random valid move
- * by reusing slot conversion and validation logic.
+ * UC8 controls the continuous game loop and alternates
+ * turns until the game ends.
  */
 public class TicTacToe {
 
-    // Pre-initialized board for testing
-    static char[][] board = {
-        {'-', '-', '-'},
-        {'-', '-', '-'},
-        {'-', '-', '-'}
-    };
-    
-    static char computerSymbol = 'O';
+    // Game State Flags
+    static boolean isHumanTurn = true;
+    static boolean gameOver = false;
 
     /**
-     * Entry point of the program. Triggers the computer move.
+     * Entry point of the program. Demonstrates the structure
+     * of a continuous game loop.
      */
     public static void main(String[] args) {
-        computerMove();
-    }
-
-    /**
-     * Generates random slot values until a valid move is found,
-     * then places the computer symbol on the board.
-     */
-    static void computerMove() {
-        Random random = new Random();
-        boolean validMoveFound = false;
-
-        // Loop until the computer finds an empty slot
-        while (!validMoveFound) {
-            // Generate a random slot between 1 and 9
-            // nextInt(9) generates 0-8, so we add 1
-            int randomSlot = random.nextInt(9) + 1; 
-
-            // Convert slot to array indices (Reusing logic from UC4)
-            int row = getRowFromSlot(randomSlot);
-            int col = getColFromSlot(randomSlot);
-
-            // Check if the move is valid (Reusing logic from UC5)
-            if (isValidMove(row, col)) {
-                // Place the move (Reusing logic from UC6)
-                placeMove(row, col, computerSymbol);
-                System.out.println("Computer placed '" + computerSymbol + "' at slot " + randomSlot);
-                validMoveFound = true; // Exit the loop
+        
+        // While Loop: Continues as long as the game is not over
+        while (!gameOver) {
+            
+            if (isHumanTurn) {
+                System.out.println("--- Human Player's Turn ---");
+                // (Methods for human move will be called here)
+            } else {
+                System.out.println("--- Computer Player's Turn ---");
+                // (Methods for computer move will be called here)
             }
+
+            // Check for Win or Draw logic would go here
+            // Example: gameOver = checkWin() || checkDraw();
+            
+            // Turn Switching: Flips true to false, or false to true
+            isHumanTurn = !isHumanTurn;
+            
+            // Temporary break to prevent an infinite loop during this test step
+            System.out.println("Turn switched. Ending loop for demonstration.");
+            gameOver = true; 
         }
     }
-
-    // --- Placeholder methods mimicking UC4, UC5, UC6 for the code to compile ---
-    static int getRowFromSlot(int slot) { return (slot - 1) / 3; }
-    static int getColFromSlot(int slot) { return (slot - 1) % 3; }
-    static boolean isValidMove(int row, int col) { return board[row][col] == '-'; }
-    static void placeMove(int row, int col, char symbol) { board[row][col] = symbol; }
 }
